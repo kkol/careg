@@ -20,7 +20,7 @@ public class Car {
     private User user;
     private String mark;
     private String model;
-    private FuelType fuelType;
+    private String fuelType;
     private int productionYear;
     private float enginePower;
     private float weight;

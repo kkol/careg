@@ -18,11 +18,4 @@ public interface CarRepository extends CrudRepository<Car, Long> {
             where c.mark = ?1 and c.model = ?2 and c.fuelType = ?3 and c.productionYear = ?4 and c.enginePower = ?5""")
     boolean ifCarAlreadyExists(@NonNull String mark, @NonNull String model, @NonNull FuelType fuelType, @NonNull int productionYear, @NonNull float enginePower);
 
-    @Query("""
-            select * from Car c
-            where c.mark = ?1
-            """)
-    List<Car> findCarsByMark(@NotNull String mark);
-
-
 }

@@ -5,18 +5,28 @@ import jakarta.validation.ConstraintValidatorContext;
 import kkol.crc.careg.model.FuelType;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class FuelTypeSubsetValidator implements ConstraintValidator<FuelTypeSubset, FuelType> {
-    private FuelType[] subset;
+public class FuelTypeSubsetValidator implements ConstraintValidator<FuelTypeSubset, CharSequence> {
+    private List<String> acceptedValues;
 
     @Override
     public void initialize(FuelTypeSubset constraintAnnotation) {
-        this.subset = constraintAnnotation.anyOf();
+        acceptedValues = Stream.of(constraintAnnotation.enumClass().getEnumConstants())
+                .map(Enum::name)
+                .collect(Collectors.toList());
     }
 
+
     @Override
-    public boolean isValid(FuelType value, ConstraintValidatorContext constraintValidatorContext) {
-        return value == null || Arrays.asList(subset).contains(value);
+    public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
+
+        return acceptedValues.contains(value.toString());
     }
 
 }

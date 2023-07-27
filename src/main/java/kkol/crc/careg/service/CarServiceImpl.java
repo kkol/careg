@@ -2,6 +2,7 @@ package kkol.crc.careg.service;
 
 import kkol.crc.careg.dto.CarDTO;
 import kkol.crc.careg.model.Car;
+import kkol.crc.careg.model.FuelType;
 import kkol.crc.careg.model.User;
 import kkol.crc.careg.repository.CarRepository;
 import kkol.crc.careg.repository.UserRepository;
@@ -35,18 +36,5 @@ public class CarServiceImpl implements CarService {
 
         return carRepository.save(car);
     }
-
-    @Override
-    public Car updateCar(CarDTO carDTO) {
-        List<Car> car = carRepository.findCarsByMark(carDTO.getMark());
-
-        if (car.size() > 0) {
-            Car updateCar = new Car(null, car.get(0).getUser(), carDTO.getMark(), carDTO.getModel(), carDTO.getFuelType(), carDTO.getProductionYear(), carDTO.getEnginePower(), carDTO.getWeight(), false);
-            return carRepository.save(updateCar);
-        } else {
-            return registerCar(carDTO);
-        }
-    }
-
 
 }

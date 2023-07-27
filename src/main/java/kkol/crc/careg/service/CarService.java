@@ -5,5 +5,4 @@ import kkol.crc.careg.model.Car;
 
 public interface CarService {
     Car registerCar(CarDTO carDTO);
-    Car updateCar(CarDTO carDTO);
 }

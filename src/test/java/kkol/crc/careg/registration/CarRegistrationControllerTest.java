@@ -63,11 +63,11 @@ public class CarRegistrationControllerTest {
                 .mark("test_mark_new")
                 .productionYear(1990)
                 .enginePower(32f)
-                .fuelType(FuelType.BIODIESEL)
+                .fuelType(FuelType.BIODIESEL.name())
                 .weight(123f)
                 .build();
 
-        Car expectedCar = new Car(null, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL, 1990, 34f, 123f, false);
+        Car expectedCar = new Car(null, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL.name(), 1990, 34f, 123f, false);
         given(carService.registerCar(carDTO)).willReturn(expectedCar);
 
         //when
@@ -82,7 +82,7 @@ public class CarRegistrationControllerTest {
     @Test
     public void getCarByIdTest() throws Exception {
         //given
-        Car expectedCar = new Car(52L, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL, 1990, 34f, 123f, false);
+        Car expectedCar = new Car(52L, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL.name(), 1990, 34f, 123f, false);
 
         //when
         when(carRepository.findById(52L)).thenReturn(Optional.of(expectedCar));
@@ -96,7 +96,7 @@ public class CarRegistrationControllerTest {
     @Test
     public void getNonExistingCarById() throws Exception {
         //given
-        Car expectedCar = new Car(52L, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL, 1990, 34f, 123f, false);
+        Car expectedCar = new Car(52L, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL.name(), 1990, 34f, 123f, false);
 
         //when
         when(carRepository.findById(52L)).thenReturn(Optional.of(expectedCar));
@@ -106,7 +106,7 @@ public class CarRegistrationControllerTest {
     @Test
     public void deleteExistingCar() throws Exception {
         //given
-        Car expectedCar = new Car(52L, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL, 1990, 34f, 123f, false);
+        Car expectedCar = new Car(52L, new User(), "test_mark_new", "test_model_new", FuelType.BIODIESEL.name(), 1990, 34f, 123f, false);
 
         given(carRepository.findById(any())).willReturn(Optional.of(expectedCar));
 

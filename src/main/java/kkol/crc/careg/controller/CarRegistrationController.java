@@ -2,6 +2,7 @@ package kkol.crc.careg.controller;
 
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
+import kkol.crc.careg.config.GlobalExceptionHandler;
 import kkol.crc.careg.dto.CarDTO;
 import kkol.crc.careg.model.Car;
 import kkol.crc.careg.repository.CarRepository;
@@ -10,17 +11,24 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/car")
-public class CarRegistrationController {
+public class CarRegistrationController implements GlobalExceptionHandler {
 
     private final CarService carService;
     private final CarRepository carRepository;
@@ -50,30 +58,4 @@ public class CarRegistrationController {
 
     }
 
-
-/*    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, Object> handleValidationExceptions(MethodArgumentNotValidException exception) {
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("statusCode", String.valueOf(exception.getStatusCode()));
-
-        Map<String, String> errors = new HashMap<>();
-
-        exception.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        errorResponse.put("errors", errors);
-        return errorResponse;
-    }
-
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(SQLException.class)
-    public Map<String, Object> handleConstrainsExceptions(SQLException exception) {
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("statusCode", "500");
-        errorResponse.put("errors", exception.getMessage());
-        return errorResponse;
-    }*/
 }

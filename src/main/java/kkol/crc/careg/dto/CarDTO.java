@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
 
+import java.util.Arrays;
+
 
 @Value
 @Data
@@ -22,11 +24,11 @@ public class CarDTO {
     @NotBlank(message = "Model should not be empty")
     @NotNull(message = "Model should not be null")
     String model;
-    @Positive
+    @Positive(message = "Should be grater than zero")
     int productionYear;
-    @Positive
+    @Positive(message ="Should be grater than zero")
     float enginePower, weight;
 
-    @FuelTypeSubset(anyOf = {FuelType.DIESEL, FuelType.BIODIESEL, FuelType.ELECTRIC, FuelType.ETHANOL, FuelType.GASOLINE})
-    FuelType fuelType;
+    @FuelTypeSubset(enumClass = FuelType.class, anyOf = {FuelType.DIESEL, FuelType.BIODIESEL, FuelType.ELECTRIC, FuelType.ETHANOL, FuelType.GASOLINE})
+    String fuelType;
 }

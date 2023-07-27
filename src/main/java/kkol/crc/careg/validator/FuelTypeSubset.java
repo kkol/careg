@@ -5,6 +5,9 @@ import jakarta.validation.Payload;
 import kkol.crc.careg.model.FuelType;
 
 import java.lang.annotation.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -13,7 +16,8 @@ import java.lang.annotation.*;
 public @interface FuelTypeSubset {
 
     FuelType[] anyOf();
-    String message() default "must be any of enum {anyOf}";
+    Class<? extends Enum<?>> enumClass();
+    String message() default "Must be any of enum {anyOf}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
